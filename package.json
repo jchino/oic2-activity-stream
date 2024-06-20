@@ -1,0 +1,20 @@
+{
+  "name": "oic2-activity-stream",
+  "version": "1.0.0",
+  "description": "Retrieve Integration Instance Activity Stream",
+  "main": "index.js",
+  "scripts": {
+    "prestart": "mkdirp ./activityStream",
+    "start": "node index.js",
+    "clean": "rimraf ./instance.csv ./activityStream"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "mkdirp": "^3.0.1",
+    "prettier": "^3.3.2",
+    "rimraf": "^5.0.7"
+  },
+  "private": "true"
+}
