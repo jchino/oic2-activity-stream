@@ -1,6 +1,6 @@
 {
   "name": "oic2-activity-stream",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Retrieve Integration Instance Activity Stream",
   "main": "index.js",
   "scripts": {

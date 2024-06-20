@@ -65,7 +65,7 @@ async function getActivityStream(id) {
     totalRecordsCount = json.totalRecordsCount || json.totalResults;
     const items = json.items;
     for (let i = 0; i < items.length; i++) {
-      fs.appendFile(INSTANCE_CSV, `${items[i].id},${items[i].date}, ${items[i].integrationName},${items[i].integrationVersion},${items[i].status}\n`, 'utf-8');
+      fs.appendFile(INSTANCE_CSV, `${items[i].id},${items[i].date},${items[i].integrationName},${items[i].integrationVersion},${items[i].status}\n`, 'utf-8');
     }
     offset += limit;
   }
