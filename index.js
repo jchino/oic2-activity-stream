@@ -13,7 +13,7 @@ const ACTIVITY_STREAM_DIR = process.env.ACTIVITY_STREAM_DIR;
 
 // Setup Request Header
 const requestHeader = new Headers({
-  'Authorization': `Basic ${Buffer.from(USER_CREDENTIAL).toString('base64')}`
+  Authorization: `Basic ${Buffer.from(USER_CREDENTIAL).toString('base64')}`,
 });
 
 // Retrieve Integration Instances
@@ -25,9 +25,9 @@ async function getInstances(limit, offset, q) {
     headers: requestHeader,
   };
   const params = new URLSearchParams({
-    'limit': limit,
-    'offset': offset,
-    'q': q
+    limit: limit,
+    offset: offset,
+    q: q,
   });
   const response = await fetch(`${BASE_URL}/monitoring/instances?${params}`, options);
   if (!response.ok) {
@@ -55,7 +55,7 @@ async function getActivityStream(id) {
 
 (async () => {
   // Retrieve All Integration Instances and Output to CSV File
-  const limit = 100;  // Query Prameter `limit`
+  const limit = 100; // Query Prameter `limit`
   let offset = 0; // Query Parameter: `offset`
   const q = `{timewindow:'RETENTIONPERIOD'}`; // Query Parameter: `q`
   let totalRecordsCount = undefined;
@@ -65,7 +65,11 @@ async function getActivityStream(id) {
     totalRecordsCount = json.totalRecordsCount || json.totalResults;
     const items = json.items;
     for (let i = 0; i < items.length; i++) {
-      fs.appendFile(INSTANCE_CSV, `${items[i].id},${items[i].date},${items[i].integrationName},${items[i].integrationVersion},${items[i].status}\n`, 'utf-8');
+      fs.appendFile(
+        INSTANCE_CSV,
+        `${items[i].id},${items[i].date},${items[i].integrationName},${items[i].integrationVersion},${items[i].status}\n`,
+        'utf-8',
+      );
     }
     offset += limit;
   }
@@ -82,6 +86,9 @@ async function getActivityStream(id) {
     const id = values[0];
     const response = await getActivityStream(id);
     const json = await response.json();
-    await fs.writeFile(`${ACTIVITY_STREAM_DIR}/activityStream-${id}.json`, JSON.stringify(json, null, '  '));
+    await fs.writeFile(
+      `${ACTIVITY_STREAM_DIR}/activityStream-${id}.json`,
+      JSON.stringify(json, null, '  '),
+    );
   }
 })();
